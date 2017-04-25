@@ -68,8 +68,15 @@ controller.on('bot_channel_join', function (bot, message) {
 });
 
 controller.hears('hello', 'direct_message,direct_mention', function (bot, message) {
-  console.log(message)
-  bot.reply(message, 'Hello!');
+  bot.reply(message, {
+    "attachments": [
+      {
+        "fallback": "test test test",
+        "text": "test test test",
+        "color": "#7CD197"
+      }
+    ]
+  });
 });
 
 controller.hears('create room with (.*)', 'direct_message', function (bot, message) {

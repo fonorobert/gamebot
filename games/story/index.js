@@ -1,16 +1,24 @@
 import _ from 'lodash'
 
-export default function ({ bot, channel, users }, onFinish, savedState) {
-  const TIME_LIMIT = 40000
+const TIME_LIMIT = 40000
+
+export default function (config, { sendMessage, onFinish }) {
+  const { bot, channel, users, savedState } = config
+
   const state = savedState || {}
   return {
     start: function () {
+      if (users.length < 2) {
+        sendMessage(config, 'At least two users are needed.')
+        return onFinish(channel)
+      }
+
       state.story = ''
       state.words = 0
       state.user = 0
       state.userCount = _.size(users)
       state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
-      bot.say({ channel, text: `Contribute to a story with 3 words. ${this.getCurrentUserName()} starts` })
+      sendMessage(config, `Contribute to a story with 3 words. @${this.getCurrentUserName()} starts`)
     },
 
     getCurrentUserName () {
@@ -25,7 +33,7 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
 
     skipUser () {
       this.nextUser()
-      bot.say({ channel, text: `You snooze you lose! Next is ${this.getCurrentUserName()}` })
+      sendMessage(config, `You snooze you lose! Next is ${this.getCurrentUserName()}`)
     },
 
     processMessage: function (message) {
@@ -38,7 +46,7 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
 
       const currentUserId = users[state.user].id
       if (currentUserId !== message.user) {
-        bot.reply(message, `Not you! ${this.getCurrentUserName()}`)
+        bot.reply(message, `Not you, @${this.getCurrentUserName()}.`)
         return
       }
 
@@ -50,20 +58,30 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
       if (state.words > 100) {
         return this.finish()
       } else {
-        bot.reply(message, `cool. next is ${this.getCurrentUserName()}!`)
+        sendMessage(config, `Cool. Next is @${this.getCurrentUserName()}!`)
       }
     },
 
     abort: function () {
+      this.cleanup()
     },
 
     serialize: function () {
     },
 
     finish: function () {
-      bot.say({ channel, text: 'here\'s your stupid story:' })
-      bot.say({ channel, text: state.story })
+      let authors = _.map(users, (user) => '@' + user).join(', ')
+      const lastComma = authors.lastIndexOf(', ')
+      authors = authors.substring(0, lastComma) + ' and ' + authors.substring(lastComma + 2)
+
+      sendMessage(config, `Here\'s the complete story:\n${state.story}\n\nby ${authors}`)
+
+      this.cleanup()
       onFinish(channel)
+    }
+
+    cleanup: function () {
+      clearTimeout(state.timeout)
     }
   }
 }
