@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import games from './games'
+import gameLibrary from './games'
 
 /**
  * Define a function for initiating a conversation on installation
@@ -67,7 +67,7 @@ controller.on('bot_channel_join', function (bot, message) {
   //bot.reply(message, "I'm here!")
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
+controller.hears('hello', 'direct_message,direct_mention', function (bot, message) {
   console.log(message)
   bot.reply(message, 'Hello!');
 });
@@ -83,5 +83,12 @@ controller.hears('create room with (.*)', 'direct_message', function (bot, messa
 controller.hears('start (.*)', 'direct_mention', function (bot, message) {
   var game = message.match[1]
   bot.reply(message, `starting *${game}*`);
-  games.start(game, { message })
+  gameLibrary.start(game, { bot, channel: message.channel })
+});
+
+controller.on('ambient', (bot, message) => {
+  const game = gameLibrary.findRunningGame(message.channel)
+  if (!game) return
+
+  game.processMessage(message)
 });

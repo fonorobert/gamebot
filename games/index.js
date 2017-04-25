@@ -7,16 +7,17 @@ const gameLibrary = {
   story
 }
 
-export default class GameLibrary {
+class GameLibrary {
   constructor () {
-    this.games = []
+    this.games = {}
   }
 
   start (gameId, config) {
-    const startGame = gameLibrary[gameId]
+    const createGame = gameLibrary[gameId]
     // error msg + abort if game already running in that channel/group chat
-    const game = startGame(config)
-    games.push(game)
+    const game = createGame(config, this.onFinish.bind(this))
+    this.games[config.channel] = game
+    game.start()
   }
 
   stop (config) {
@@ -25,12 +26,23 @@ export default class GameLibrary {
   }
 
   saveAll () {
-    const state = _.map(games, (game) => game.serialize())
+    const state = _.map(games, (game, channel) => ({ [channel]: game.serialize() }))
 
     // persist somewhere
   }
 
   loadAll () {
-    games = [] // load from disk
+    games = {} // load from disk
+  }
+
+  findRunningGame (channel) {
+    return this.games[channel]
+  }
+
+  onFinish (channel) {
+    this.games = _.omit(this.games, channel)
   }
 }
+
+const instance = new GameLibrary()
+export default instance
