@@ -1,11 +1,23 @@
-export default function ({ bot, channel }, onFinish, savedState) {
+import _ from 'lodash'
+
+export default function ({ bot, channel, users }, onFinish, savedState) {
   const state = savedState || {}
   return {
     start: function () {
       state.story = ''
       state.words = 0
-      state.user = null
-      bot.say({ channel, text: 'Contribute to a story with 3 words' })
+      state.user = 0
+      state.userCount = _.size(users)
+      bot.say({ channel, text: `Contribute to a story with 3 words. ${this.getCurrentUserName()} starts` })
+    },
+
+    getCurrentUserName () {
+      return users[state.user].name
+    },
+
+    nextUser () {
+      const nextUser = ((state.user + 1) > (_.size(users) - 1)) ? 0 : state.user + 1
+      state.user = nextUser
     },
 
     processMessage: function (message) {
@@ -15,17 +27,18 @@ export default function ({ bot, channel }, onFinish, savedState) {
 
       const words = message.text.split(/\s+/)
       if (words.length === 3) {
-        if (state.user === message.user) {
-          bot.reply(message, 'but not you')
+        const currentUserId = users[state.user].id
+        if (currentUserId !== message.user) {
+          bot.reply(message, `Not you! ${this.getCurrentUserName()}`)
         } else {
           state.story += message.text.trim() + ' '
           state.words += 3
-          state.user = message.user
+          this.nextUser()
 
           if (state.words > 100) {
             return this.finish()
           } else {
-            bot.reply(message, 'cool. next!')
+            bot.reply(message, `cool. next is ${this.getCurrentUserName()}!`)
           }
         }
       }

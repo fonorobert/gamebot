@@ -99,7 +99,9 @@ const getMpimMembers = (bot, message) => {
   return new Promise((resolve, reject) => {
     bot.api.mpim.list({}, (err, resp) => {
       const mpim = _.find(resp.groups, { id: message.channel })
-      const userPromises = mpim.members.map((member) => getUserInfo(bot, member))
+      const userPromises = mpim.members
+        .filter((member) => member !== bot.identity.id)
+        .map((member) => getUserInfo(bot, member))
 
       Promise.all(userPromises).then(resolve).catch(reject)
     })
