@@ -25,7 +25,7 @@ export default class GameLibrary {
   }
 
   saveAll () {
-    const state = _.map(games, (game) => game.serialize()
+    const state = _.map(games, (game) => game.serialize())
 
     // persist somewhere
   }

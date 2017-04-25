@@ -2,6 +2,23 @@ import _ from 'lodash'
 import games from './games'
 
 /**
+ * Define a function for initiating a conversation on installation
+ * With custom integrations, we don't have a way to find out who installed us, so we can't message them :(
+ */
+function onInstallation(bot, installer) {
+  if (installer) {
+    bot.startPrivateConversation({user: installer}, function (err, convo) {
+      if (err) {
+        console.log(err);
+      } else {
+        convo.say('I am a bot that has just joined your team');
+        convo.say('You must now /invite me to a channel so that I can be of use!');
+      }
+    });
+  }
+}
+
+/**
  * Configure the persistence options
  */
 var config = {};
