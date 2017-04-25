@@ -1,5 +1,5 @@
-var _ = require('lodash')
-var games = require('./games')
+import _ from 'lodash'
+import games from './games'
 
 /**
  * A Bot for Slack!
@@ -93,17 +93,17 @@ controller.hears('hello', 'direct_message', function (bot, message) {
 });
 
 controller.hears('create room with (.*)', 'direct_message', function (bot, message) {
-  var players = message.match[1].split(/[,\s]+/)
-  players = validate(players)
-  bot.reply(message, 'creating game room with ' + players.join(', '));
+  const players = message.match[1].split(/[,\s]+/)
+  //players = validate(players)
+  bot.reply(message, 'creating game room with ' + players.join(', '))
   // invite users to group chat
   // send message to chat telling how to start game
 });
 
 controller.hears('start (.*)', 'direct_mention', function (bot, message) {
   var game = message.match[1]
-  bot.reply(message, 'starting *' + game + '*');
-  games.start(game, { message: message })
+  bot.reply(message, `starting *${game}*`);
+  games.start(game, { message })
 });
 
 /**
