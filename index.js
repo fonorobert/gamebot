@@ -83,7 +83,9 @@ controller.hears('create room with (.*)', 'direct_message', function (bot, messa
 controller.hears('start (.*)', 'direct_mention', function (bot, message) {
   var game = message.match[1]
   bot.reply(message, `starting *${game}*`);
-  gameLibrary.start(game, { bot, channel: message.channel })
+  getMpimMembers(bot, message).then((users) => {
+    gameLibrary.start(game, { bot, channel: message.channel, users })
+  })
 });
 
 controller.on('ambient', (bot, message) => {
@@ -93,28 +95,23 @@ controller.on('ambient', (bot, message) => {
   game.processMessage(message)
 });
 
-const getMpimMembers = (bot, message, cb) => {
-  bot.api.mpim.list({}, (err, resp) => {
-    const mpim = _.find(resp.groups, { id: message.channel })
-    cb(mpim.members)
-  })
-}
+const getMpimMembers = (bot, message) => {
+  return new Promise((resolve, reject) => {
+    bot.api.mpim.list({}, (err, resp) => {
+      const mpim = _.find(resp.groups, { id: message.channel })
+      const userPromises = mpim.members.map((member) => getUserInfo(bot, member))
 
-const getUserInfo = (bot, userId, cb) => {
-  bot.api.users.info({ user: userId }, (err, resp) => {
-    cb(resp.user)
-  })
-}
-
-controller.on('ambient', function (bot, message) {
-  // no need for it right now
-  return
-
-  getMpimMembers(bot, message, (members) => {
-    members.forEach((member) => {
-      getUserInfo(bot, member, (user) => {
-        // do something
-      })
+      Promise.all(userPromises).then(resolve).catch(reject)
     })
   })
-})
+}
+
+const getUserInfo = (bot, userId) => {
+  return new Promise((resolve, reject) => {
+    bot.api.users.info({ user: userId }, (err, resp) => {
+      if (!resp.ok) return reject()
+      const { id, name } = resp.user
+      resolve({ id, name })
+    })
+  })
+}
