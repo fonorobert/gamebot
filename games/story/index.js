@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 export default function ({ bot, channel, users }, onFinish, savedState) {
+  const TIME_LIMIT = 40000
   const state = savedState || {}
   return {
     start: function () {
@@ -8,6 +9,7 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
       state.words = 0
       state.user = 0
       state.userCount = _.size(users)
+      state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
       bot.say({ channel, text: `Contribute to a story with 3 words. ${this.getCurrentUserName()} starts` })
     },
 
@@ -18,6 +20,12 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
     nextUser () {
       const nextUser = ((state.user + 1) > (_.size(users) - 1)) ? 0 : state.user + 1
       state.user = nextUser
+      state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
+    },
+
+    skipUser () {
+      this.nextUser()
+      bot.say({ channel, text: `You snooze you lose! Next is ${this.getCurrentUserName()}` })
     },
 
     processMessage: function (message) {
@@ -26,21 +34,23 @@ export default function ({ bot, channel, users }, onFinish, savedState) {
       }
 
       const words = message.text.split(/\s+/)
-      if (words.length === 3) {
-        const currentUserId = users[state.user].id
-        if (currentUserId !== message.user) {
-          bot.reply(message, `Not you! ${this.getCurrentUserName()}`)
-        } else {
-          state.story += message.text.trim() + ' '
-          state.words += 3
-          this.nextUser()
+      if (words.length !== 3) return
 
-          if (state.words > 100) {
-            return this.finish()
-          } else {
-            bot.reply(message, `cool. next is ${this.getCurrentUserName()}!`)
-          }
-        }
+      const currentUserId = users[state.user].id
+      if (currentUserId !== message.user) {
+        bot.reply(message, `Not you! ${this.getCurrentUserName()}`)
+        return
+      }
+
+      clearTimeout(state.timeout)
+      state.story += message.text.trim() + ' '
+      state.words += 3
+      this.nextUser()
+
+      if (state.words > 100) {
+        return this.finish()
+      } else {
+        bot.reply(message, `cool. next is ${this.getCurrentUserName()}!`)
       }
     },
 
