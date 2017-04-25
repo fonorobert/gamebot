@@ -92,3 +92,29 @@ controller.on('ambient', (bot, message) => {
 
   game.processMessage(message)
 });
+
+const getMpimMembers = (bot, message, cb) => {
+  bot.api.mpim.list({}, (err, resp) => {
+    const mpim = _.find(resp.groups, { id: message.channel })
+    cb(mpim.members)
+  })
+}
+
+const getUserInfo = (bot, userId, cb) => {
+  bot.api.users.info({ user: userId }, (err, resp) => {
+    cb(resp.user)
+  })
+}
+
+controller.on('ambient', function (bot, message) {
+  // no need for it right now
+  return
+
+  getMpimMembers(bot, message, (members) => {
+    members.forEach((member) => {
+      getUserInfo(bot, member, (user) => {
+        // do something
+      })
+    })
+  })
+})
