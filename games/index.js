@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import colors from '../utils/colors'
 import guess from './guess'
 import story from './story'
 
@@ -43,14 +44,18 @@ class GameLibrary {
     return this.games[channel]
   }
 
-  sendMessage ({ bot, channel }, text) {
-    bot.say({ channel, "attachments": [
+  sendMessage ({ bot, channel }, text, color = colors.success) {
+    bot.say({ channel, attachments: [
       {
         fallback: text,
         text: text,
-        color: "#7CD197"
+        color
       }
     ]})
+  }
+
+  sendMessageAdvanced ({ bot, channel }, message) {
+    bot.say(_.assign({}, channel, message))
   }
 
   onFinish (channel) {

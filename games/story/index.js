@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import colors from '../../utils/colors'
 
 const TIME_LIMIT = 40000
 
@@ -18,7 +19,7 @@ export default function (config, { sendMessage, onFinish }) {
       state.user = 0
       state.userCount = _.size(users)
       state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
-      sendMessage(config, `Contribute to a story with 3 words. @${this.getCurrentUserName()} starts`)
+      sendMessage(config, `Contribute to a story with 3 words. *${this.getCurrentUserName()}* starts`)
     },
 
     getCurrentUserName () {
@@ -33,7 +34,7 @@ export default function (config, { sendMessage, onFinish }) {
 
     skipUser () {
       this.nextUser()
-      sendMessage(config, `You snooze you lose! Next is ${this.getCurrentUserName()}`)
+      sendMessage(config, `You snooze you lose! Next is *${this.getCurrentUserName()}*`)
     },
 
     processMessage: function (message) {
@@ -46,7 +47,7 @@ export default function (config, { sendMessage, onFinish }) {
 
       const currentUserId = users[state.user].id
       if (currentUserId !== message.user) {
-        bot.reply(message, `Not you, @${this.getCurrentUserName()}.`)
+        sendMessage(config, `I appreciate your enthusiasm but it's not your turn yet. It is *${this.getCurrentUserName()}*'s turn.`, colors.error)
         return
       }
 
@@ -58,7 +59,7 @@ export default function (config, { sendMessage, onFinish }) {
       if (state.words > 100) {
         return this.finish()
       } else {
-        sendMessage(config, `Cool. Next is @${this.getCurrentUserName()}!`)
+        sendMessage(config, `Cool. Next is *${this.getCurrentUserName()}*!`)
       }
     },
 
@@ -70,11 +71,22 @@ export default function (config, { sendMessage, onFinish }) {
     },
 
     finish: function () {
-      let authors = _.map(users, (user) => '@' + user).join(', ')
+      let authors = _.map(users, (user) => '@' + user.name).join(', ')
       const lastComma = authors.lastIndexOf(', ')
       authors = authors.substring(0, lastComma) + ' and ' + authors.substring(lastComma + 2)
 
-      sendMessage(config, `Here\'s the complete story:\n${state.story}\n\nby ${authors}`)
+      const pretext = 'Here\'s the complete story:'
+      const text = `${state.story}\n\nby ${authors}`
+      const fallback = `${pretext}\n${text}`
+      sendMessage(config, {
+        attachments: [
+          {
+            pretext,
+            text,
+            color: colors.success
+          }
+        ]
+      })
 
       this.cleanup()
       onFinish(channel)
