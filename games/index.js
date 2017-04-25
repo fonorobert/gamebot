@@ -1,28 +1,34 @@
 import _ from 'lodash'
+import story from './story'
 
-var gameLibrary = {
-  story: require('./story')
+const gameLibrary = {
+  story
 }
 
-var games = []
+export default class GameLibrary {
+  constructor () {
+    this.games = []
+  }
 
-module.exports = {
-  start: function (gameId, config) {
-    var startGame = gameLibrary[gameId]
-    var game = startGame(config)
+  start (gameId, config) {
+    const startGame = gameLibrary[gameId]
+    // error msg + abort if game already running in that channel/group chat
+    const game = startGame(config)
     games.push(game)
-  },
-  stop: function () {
+  }
 
-  },
-  saveAll: function () {
-    var state = _.map(games, function (game) {
-      return game.serialize()
-    })
+  stop (config) {
+    const game = {} // find the game
+    game.stop()
+  }
+
+  saveAll () {
+    const state = _.map(games, (game) => game.serialize()
 
     // persist somewhere
-  },
-  loadAll: function () {
+  }
+
+  loadAll () {
     games = [] // load from disk
   }
 }
