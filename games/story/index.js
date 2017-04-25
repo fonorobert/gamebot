@@ -78,7 +78,7 @@ export default function (config, { sendMessage, onFinish }) {
 
       this.cleanup()
       onFinish(channel)
-    }
+    },
 
     cleanup: function () {
       clearTimeout(state.timeout)
