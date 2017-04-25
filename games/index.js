@@ -1,7 +1,9 @@
 import _ from 'lodash'
+import guess from './guess'
 import story from './story'
 
 const gameLibrary = {
+  guess,
   story
 }
 
