@@ -3,7 +3,7 @@ import colors from '../../utils/colors'
 
 const TIME_LIMIT = 40000
 
-export default function (config, { sendMessage, onFinish }) {
+export default function (config, { sendMessage, onFinish }, { maxIterations=3 }) {
   const { bot, channel, users, savedState } = config
 
   const state = savedState || {}
@@ -19,6 +19,9 @@ export default function (config, { sendMessage, onFinish }) {
       state.user = 0
       state.userCount = _.size(users)
       state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
+      state.playCount = 0
+      state.iterationCount = 0
+      state.maxIterations = maxIterations
       sendMessage(config, `Contribute to a story with 3 words. *${this.getCurrentUserName()}* starts`)
     },
 
@@ -52,11 +55,13 @@ export default function (config, { sendMessage, onFinish }) {
       }
 
       clearTimeout(state.timeout)
+      state.playCount += 1
+      if (state.playCount % state.userCount === 0) state.iterationCount += 1
       state.story += message.text.trim() + ' '
       state.words += 3
       this.nextUser()
 
-      if (state.words > 100) {
+      if (state.iterationCount == state.maxIterations) {
         return this.finish()
       } else {
         sendMessage(config, `Cool. Next is *${this.getCurrentUserName()}*!`)

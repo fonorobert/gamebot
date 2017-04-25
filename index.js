@@ -88,10 +88,13 @@ controller.hears('create room with (.*)', 'direct_message', function (bot, messa
 });
 
 controller.hears('start (.*)', 'direct_mention', function (bot, message) {
-  var game = message.match[1]
+  var params = message.match[1].split(/[,\s]+/)
+  var game = params[0]
+  var maxIterations = params[1]
+
   bot.reply(message, `starting *${game}*`);
   getMpimMembers(bot, message).then((users) => {
-    gameLibrary.start(game, { bot, channel: message.channel, users })
+    gameLibrary.start(game, { bot, channel: message.channel, users }, { maxIterations })
   })
 });
 

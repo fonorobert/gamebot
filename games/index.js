@@ -13,13 +13,13 @@ class GameLibrary {
     this.games = {}
   }
 
-  start (gameId, config) {
+  start (gameId, config, gameOptions) {
     const createGame = gameLibrary[gameId]
     // error msg + abort if game already running in that channel/group chat
     const game = createGame(config, {
       onFinish: this.onFinish.bind(this),
       sendMessage: this.sendMessage.bind(this)
-    })
+    }, gameOptions)
 
     this.games[config.channel] = game
     game.start()
