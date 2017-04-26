@@ -44,18 +44,29 @@ class GameLibrary {
     return this.games[channel]
   }
 
-  sendMessage ({ bot, channel }, text, color = colors.success) {
+  sendMessage (config, ...args) {
+    if (_.isString(args[0])) {
+      console.log('simple', args)
+      this.sendMessageSimple(config, ...args)
+    } else {
+      console.log('advanced', args)
+      this.sendMessageAdvanced(config, ...args)
+    }
+  }
+
+  sendMessageSimple ({ bot, channel }, text, color = colors.success) {
     bot.say({ channel, attachments: [
       {
         fallback: text,
         text: text,
-        color
+        color,
+        "mrkdwn_in": ["text"]
       }
     ]})
   }
 
   sendMessageAdvanced ({ bot, channel }, message) {
-    bot.say(_.assign({}, channel, message))
+    bot.say(_.assign({}, { channel }, message))
   }
 
   onFinish (channel) {

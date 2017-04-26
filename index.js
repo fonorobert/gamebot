@@ -87,7 +87,7 @@ controller.hears('create room with (.*)', 'direct_message', function (bot, messa
   // send message to chat telling how to start game
 });
 
-controller.hears('start (.*)', 'direct_mention', function (bot, message) {
+controller.hears('start (.*)', 'direct_mention,direct_message', function (bot, message) {
   var params = message.match[1].split(/[,\s]+/)
   var game = params[0]
   var maxIterations = params[1]
@@ -109,6 +109,8 @@ const getMpimMembers = (bot, message) => {
   return new Promise((resolve, reject) => {
     bot.api.mpim.list({}, (err, resp) => {
       const mpim = _.find(resp.groups, { id: message.channel })
+      if (!mpim) return resolve([])
+
       const userPromises = mpim.members
         .filter((member) => member !== bot.identity.id)
         .map((member) => getUserInfo(bot, member))
@@ -121,7 +123,7 @@ const getMpimMembers = (bot, message) => {
 const getUserInfo = (bot, userId) => {
   return new Promise((resolve, reject) => {
     bot.api.users.info({ user: userId }, (err, resp) => {
-      if (!resp.ok) return reject()
+      if (!resp || !resp.ok) return reject()
       const { id, name } = resp.user
       resolve({ id, name })
     })
