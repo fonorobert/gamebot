@@ -1,0 +1,234 @@
+,crisis/event,,SELF,,,CHOOSE ONE,,,,ALL OTHERS,,,,,,,,,,
+Description,,time cost,social,health,wealth,social,health,wealth,time,social,health,wealth,time,score missing,self ratio,target ratio,global ratio,total harm,harm per time,deviation from avg
+Internet goes down for 20 minutes.,x,0,-4,-4,-4,,,,,-4,-4,-4,,FALSE,-12,0,-24,-36,-36,-34.26
+Alien Invasion.,x,0,-4,-4,-4,,,,,-4,-4,-4,,FALSE,-12,0,-24,-36,-36,-34.26
+Global Recession.,x,0,,,-5,,,,,,,-5,,FALSE,-5,0,-10,-15,-15,-13.26
+YOLO!,,1,-1,-1,-1,,,,,-1,-1,-1,-1,FALSE,-3,0,-6,-9,-9,-7.26
+You are a woman.,x,0,2,,-3,,,-3,,,,,,FALSE,-1,-9,0,-10,-10,-8.26
+Buy your friend a game console.,,2,,,-2,-3,-2,,,,,,,FALSE,-2,-15,0,-17,-8.5,-6.76
+You are stupid.,x,0,2,,,,,,,-3,-3,-2,-2,FALSE,2,0,-16,-14,-14,-12.26
+You dump your partner. They get drunk.,,2,-3,,,,-2,-2,2,,,,,FALSE,-3,-12,0,-15,-7.5,-5.76
+You remember you have student loans.,,1,-2,-2,-3,,,,,,,,,FALSE,-7,0,0,-7,-7,-5.26
+Some sports game is happening in your city. Apparently it's a big deal.,,3,,-3,-1,,-3,-2,,,,,,FALSE,-4,-15,0,-19,-6.333333333,-4.59
+Apparently global warming is real.,x,0,-2,-5,,,,,,-2,-5,,,FALSE,-7,0,-14,-21,-21,-19.26
+Your shitty business idea fails predictably. ,x,0,-4,-4,-4,,,,,,,,,FALSE,-12,0,0,-12,-12,-10.26
+You drop your smartphone.,x,0,-3,2,-3,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+Twitter is down. You try to tweet about it.,x,0,-4,,,,,,,-2,,,,FALSE,-4,0,-4,-8,-8,-6.26
+Drake's new album drops.,x,0,,-4,-4,,,,,,-4,-4,,FALSE,-8,0,-16,-24,-24,-22.26
+Make fun of North Korea online. Get nuked.,,1,-2,,,,,,,-2,,,,FALSE,-2,0,-4,-6,-6,-4.26
+Your dealer discovers socialism on Wikipedia. Weed prices decrease.,x,0,-3,,3,,,,,,-4,-2,,FALSE,0,0,-12,-12,-12,-10.26
+"You win a fight over which came first, the chicken or the egg.",,2,,-2,,,-3,,,,,,,FALSE,-2,-9,0,-11,-5.5,-3.76
+Buy your friend an elephant.,,3,,,-3,-2,-2,,,,,,,FALSE,-3,-12,0,-15,-5,-3.26
+Drunk tweet about failed Kickstarter campaign.,,1,-3,,,,,,,-1,,,,FALSE,-3,0,-2,-5,-5,-3.26
+Become morbidly obese.,,2,,-3,,,,,,,,-3,,FALSE,-3,0,-6,-9,-4.5,-2.76
+Be THAT guy.,,3,-2,,2,,-1,-3,-2,,,,,FALSE,0,-12,0,-12,-4,-2.26
+Drunk dial your ex.,,1,,-4,,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+Cut someone off in traffic because you're an asshole no matter how often you quote Gandhi.,,1,-1,,,,-1,,-1,,,,,FALSE,-1,-3,0,-4,-4,-2.26
+Give someone a boomerang. They throw it away. It comes back.,,1,,,-1,,-1,,-1,,,,,FALSE,-1,-3,0,-4,-4,-2.26
+You quote Marilyn Monroe on your Facebook page.,,1,-4,,,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+Your Facebook has been hacked. Friends hate you.,,1,-2,2,,,,,,-2,,,,FALSE,0,0,-4,-4,-4,-2.26
+Emotionally blackmail friend to go to the bar with you.,,2,1,-1,-1,1,-1,-2,-2,,,,,FALSE,-1,-6,0,-7,-3.5,-1.76
+You correct someone's grammar on the Internet.,,2,-2,,1,-2,,,,,,,,FALSE,-1,-6,0,-7,-3.5,-1.76
+You win a cruise. You send your annoying friend. ,,2,,,,2,-2,-2,-2,,,,,FALSE,0,-6,0,-6,-3,-1.26
+Listen to a cool NPR podcast while driving. Cause a 42 car pileup.,,5,-1,-2,-2,,,,,,-2,-3,-1,FALSE,-5,0,-10,-15,-3,-1.26
+Spend rent money on tequila shots for your friends.,,2,,,-2,,,,,,-2,,,FALSE,-2,0,-4,-6,-3,-1.26
+Buy a Prius. Tell everyone about your Prius.,,2,,,-2,,,,,,-2,,,FALSE,-2,0,-4,-6,-3,-1.26
+Accidentally join ISIS.,,2,-2,,,,,,,,-2,,,FALSE,-2,0,-4,-6,-3,-1.26
+Sell your friend's Twitter account.,,2,-2,,2,-2,,,,,,,,FALSE,0,-6,0,-6,-3,-1.26
+Your condom broke.,x,5,,,-4,,,,,,,,,FALSE,-4,0,0,-4,-0.8,0.94
+Apple announces new laptop. You buy it.,x,0,,,-4,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+You finish last. Get a participation trophy.,x,0,-4,,,,,,,,,-4,,FALSE,-4,0,-8,-12,-12,-10.26
+Start a business selling useless hipster shit.,,4,-2,-2,-2,,,,,,,-3,,FALSE,-6,0,-6,-12,-3,-1.26
+Starbucks increases prices by $0.1.,x,0,-4,2,-4,,,,,-4,2,-4,,FALSE,-6,0,-12,-18,-18,-16.26
+You finish a TV series. Your life still sucks.,x,0,-4,-2,,,,,,,,,,FALSE,-6,0,0,-6,-6,-4.26
+Spring break! Accidentally sleep with your cousin.,,3,2,-2,-2,2,-2,-2,-2,,,,,FALSE,-2,-6,0,-8,-2.666666667,-0.93
+You just bought an iPhone. Apple releases a new model. You can't afford it.,,2,,-2,-3,,,,,,,,,FALSE,-5,0,0,-5,-2.5,-0.76
+You get drunk and eat cake. You tweet about it. ,,2,1,,-2,,,,,-3,,1,,FALSE,-1,0,-4,-5,-2.5,-0.76
+"You can't afford your water bill, so you stop showering.",,2,-1,,,,,,,,-2,,,FALSE,-1,0,-4,-5,-2.5,-0.76
+Get annoyed by friend singing viral song. Punch him.,,4,-1,,-1,,-3,1,,,,,,FALSE,-2,-6,0,-8,-2,-0.26
+Join a pyramid scheme. Convince your friends to join.,,4,-2,,4,,,,,-2,,-3,,FALSE,2,0,-10,-8,-2,-0.26
+Become a freelancer. You do not have any skills.,,2,-3,-3,2,,,,,,,,,FALSE,-4,0,0,-4,-2,-0.26
+You get divorced.,,2,,,-4,,,,-2,,,,,FALSE,-4,0,0,-4,-2,-0.26
+Do ecstasy at a party. It wasn't ecstacy.,,2,-2,-2,,,,,,,,,,FALSE,-4,0,0,-4,-2,-0.26
+Go on Facebook and see your friends doing cool stuff. Your life is an embarassment.,,1,0,-2,0,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+You walk into a bar. It hurts.,x,1,,-4,,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+You try to buy a house. You don't have any money.,,1,,,-2,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+Visit a print shop. They're out of paper.,,1,,-1,-1,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+Evade Taxes. Get caught because you tweeted about it.,,1,,,-2,,,,,,,,-1,FALSE,-2,0,0,-2,-2,-0.26
+Make fun of North Korea online. Get made fun of back.,,1,-2,,,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+You look at yourself in the mirror.,x,0,-4,-2,,,,,,,,,,FALSE,-6,0,0,-6,-6,-4.26
+Your life sucks.,x,0,-4,,,,,,,,,,,FALSE,-4,0,0,-4,-4,-2.26
+Your friend doesn't file taxes. You tell the IRS for a reward. There is no reward.,,5,,,,,,-3,-2,,,,,FALSE,0,-9,0,-9,-1.8,-0.06
+You become Vegan. Tell a friend.,,2,,1,,,,,,-2,,,,FALSE,1,0,-4,-3,-1.5,0.24
+Become a hipster.,,2,-3,2,-2,,,,,,,,-1,FALSE,-3,0,0,-3,-1.5,0.24
+Your partner dumps you. You get drunk.,,2,,-2,-1,,,,,,,,,FALSE,-3,0,0,-3,-1.5,0.24
+You dump your partner. You get drunk.,,2,,-2,-1,,,,,,,,,FALSE,-3,0,0,-3,-1.5,0.24
+Have a pool party. You don't have a pool.,,2,1,-2,,,,,,1,-2,,-1,FALSE,-1,0,-2,-3,-1.5,0.24
+Get a face tattoo in Vegas.,,2,-2,,-1,,,,,,,,,FALSE,-3,0,0,-3,-1.5,0.24
+Someone else looks at your face.,,2,,,,,-1,,-1,,,,,FALSE,0,-3,0,-3,-1.5,0.24
+Taxes on alcohol are abolished for 24 hours. Everything goes to shit.,x,3,2,-3,-2,,,,,2,-3,-2,3,FALSE,-3,0,-6,-9,-3,-1.26
+Fly to Vegas.,,3,1,-1,-4,,,,,,,,,FALSE,-4,0,0,-4,-1.333333333,0.41
+Visit Thailand and post lots of pictures nobody gives a shit about.,,4,2,,-3,,,,,,-2,,,FALSE,-1,0,-4,-5,-1.25,0.49
+Nuclear Holocaust.,x,5,3,-3,-2,,,,,3,-3,-2,5,FALSE,-2,0,-4,-6,-1.2,0.54
+Start breeding kittens for fun and profit.,,5,3,-1,-2,,,,,-2,,-1,,FALSE,0,0,-6,-6,-1.2,0.54
+Your Macbook dies. You steal a charger from a friend.,,5,,,3,,,-3,,,,,,FALSE,3,-9,0,-6,-1.2,0.54
+Start a revolution to abolish the government. It fails.,,5,1,-3,-3,,,,,,,,-2,FALSE,-5,0,0,-5,-1,0.74
+Gift someone tickets to a meditation retreat.,,3,,,-3,,,,-3,,,,,FALSE,-3,0,0,-3,-1,0.74
+Go to Coachella. Spend all your rent money listening to Maroon 5. You are a moron.,,3,1,-2,-2,,,,,,,,,FALSE,-3,0,0,-3,-1,0.74
+Your boss actually notices you exist.,,2,-2,-2,2,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+Have an existential crisis.,,2,-2,,,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+Attack people on the internet about social issues you don't know much about.,,2,1,,-3,,,,-3,,,,,FALSE,-2,0,0,-2,-1,0.74
+Buy accordion. Realize you are an idiot. Sell accordion.,,2,,,-2,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+Get married.,,2,-2,2,-2,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+You go to Hawaii to find yourself. You do a lot of weed and stop showering.,,2,-2,3,-3,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+Get herpes in Vegas.,,2,,-2,,,,,,,,,,FALSE,-2,0,0,-2,-1,0.74
+Use student loans to go Whiskey tasting.,,1,1,,-2,2,-2,,-2,,,,,FALSE,-1,0,0,-1,-1,0.74
+You remember Firefly is still cancelled.,,1,,-1,,,,,,,,,,FALSE,-1,0,0,-1,-1,0.74
+You don't know what to do with your life.,x,0,-3,-3,-3,,,,,,,,,FALSE,-9,0,0,-9,-9,-7.26
+Your dealer finishes an MBA at a local college. Weed prices increase.,x,0,,2,-4,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+Run with scissors.,,1,,-1,,,,,,,,,,FALSE,-1,0,0,-1,-1,0.74
+You get hit by a car and die.,x,0,2,-5,,,,,,,,,,FALSE,-3,0,0,-3,-3,-1.26
+You start learning Yoga. Doesn't help anything. ,,3,-1,,,,,,,-1,,,,FALSE,-1,0,-2,-3,-1,0.74
+You can't even.,,1,1,,,,,,,-1,,,,FALSE,1,0,-2,-1,-1,0.74
+You convince someone to go to Burning Man. You both get herpes. ,,4,3,-2,-2,3,-2,-2,-2,,,,,FALSE,-1,-3,0,-4,-1,0.74
+You discover you are a lesbian and break up with your partner.,,2,-1,,2,-1,-1,1,-1,,,,,FALSE,1,-3,0,-2,-1,0.74
+You are ugly.,x,0,-4,-3,-1,,,,,1,,,,FALSE,-8,0,2,-6,-6,-4.26
+"Sell a smart car to friend, program it to come back to you every night.",,5,3,-2,4,,,-3,,,,,,FALSE,5,-9,0,-4,-0.8,0.94
+Volunteer for Hunger Games. Win.,,5,2,-2,2,,,,,,-3,,-2,FALSE,2,0,-6,-4,-0.8,0.94
+Boss asked to fill in your timesheets for past month.,x,4,-4,-4,3,,,,,,,,,FALSE,-5,0,0,-5,-1.25,0.49
+You get caught growing weed in your attic.,x,3,2,-4,-4,,,,,,,,,FALSE,-6,0,0,-6,-2,-0.26
+You throw a birthday party.,,3,3,-3,-2,,,,,,,,,FALSE,-2,0,0,-2,-0.6666666667,1.07
+You finally watch The Wire.,,3,,,,,,,,,-1,,-1,FALSE,0,0,-2,-2,-0.6666666667,1.07
+You're jet lagged after traveling. You don't shut up about it.,,3,2,-2,,,,,,-1,,,-1,FALSE,0,0,-2,-2,-0.6666666667,1.07
+You lose your Facebook password. ,,5,-3,2,,,,,,-1,,,,FALSE,-1,0,-2,-3,-0.6,1.14
+Go to college since you're useless at everything.,,4,3,-2,-3,,,,,,,,,FALSE,-2,0,0,-2,-0.5,1.24
+Buy a smart car.,,2,-3,3,-1,,,,,,,,,FALSE,-1,0,0,-1,-0.5,1.24
+Refuse to obey a cop.,,2,3,-4,,,,,,,,,,FALSE,-1,0,0,-1,-0.5,1.24
+Make fun of North Korea online. Get poisoned.,,2,2,-3,,,,,,,,,,FALSE,-1,0,0,-1,-0.5,1.24
+You spend hours getting your moustache perfect. Realize you are worthless.,,2,-2,,1,,,,,,,,,FALSE,-1,0,0,-1,-0.5,1.24
+There's an elephant in the room. It ignores you.,,2,-1,,,,,,,,,,,FALSE,-1,0,0,-1,-0.5,1.24
+"You visit a friend. You steal their beer, and then leave. ",,2,1,,1,-1,,,,,,,,FALSE,2,-3,0,-1,-0.5,1.24
+Your tax got returned. Twice. Go to jail.,x,5,-4,-4,,,,,,,,,,FALSE,-8,0,0,-8,-1.6,0.14
+Get a corporate job. Blog about it.,,3,,-3,2,,,,,,,,,FALSE,-1,0,0,-1,-0.3333333333,1.41
+Point laser pointer at army helicopter. It's not appreciated.,,3,2,-1,-2,,,,,,,,,FALSE,-1,0,0,-1,-0.3333333333,1.41
+"You opened Vegan restaraunt, but quickly run out of Vegans as demand is high.",,3,-3,-1,3,,,,,,,,,FALSE,-1,0,0,-1,-0.3333333333,1.41
+President of your country accidentally likes your photo. All your friends leave you.,,3,3,-2,-2,,,,,,,,,FALSE,-1,0,0,-1,-0.3333333333,1.41
+Your friends are having shots. You are not invited.,,3,-1,2,2,,,,,-2,,,,FALSE,3,0,-4,-1,-0.3333333333,1.41
+You insult cop checking your documents and live stream it.,,4,4,-2,-3,,,,,,,,,FALSE,-1,0,0,-1,-0.25,1.49
+You visit Brazil. Get mugged.,x,0,-4,-4,,,,,,,,,,FALSE,-8,0,0,-8,-8,-6.26
+You just bought an iPhone. Apple releases a new model. You buy it.,,2,,2,-2,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Your self-driving car gets pulled over for going too slow. Google tweets at you.,,2,2,,-2,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"Think before you do, be unpopular amongst friends.",,3,-4,,,,,,,2,,,-1,FALSE,-4,0,4,0,0,1.74
+Drunk call yourself.,,1,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Accidentally deleted your screenplay.,x,0,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Accidentally consume non cruelty-free product.,x,0,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You are a white male. Take a card from someone else.,x,0,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Tried to fly while being brown.,,5,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"Go to a conference. You adult, you.",,4,3,,-3,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Get into political argument on Facebook.,,1,-1,1,,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You find out the Maldives will be gone soon. Visit them.,,2,,2,-2,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Buy suspenders. Sell them because you look like an idiot.,,2,1,,-1,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"You go to a PETA demonstration in leather jacket. It hurt, but you're trending on Worldstar.",,5,4,-4,,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Watch documentary about social issues. Do nothing.,,2,,,,,,,,,,,-1,FALSE,0,0,0,0,0,1.74
+Petition government to increase number of hours in a day to 25.,,1,3,,-3,,,,,,,,-1,FALSE,0,0,0,0,0,1.74
+Start a Kickstarter. Flip a coin to determine whether it succeeds or fails.,,3,,,,,,,,,,,-1,FALSE,0,0,0,0,0,1.74
+Wear Nirvana Tshirt. Walk somewhere.,,1,,1,-1,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You discover that a horse is cheaper than an iPhone. You buy a horse.,,4,3,,-3,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You still haven't finished your Liberal Arts degree after six years.,,2,2,,-2,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"This card does nothing, but takes a while.",,3,,,,,,,,,,,-3,FALSE,0,0,0,0,0,1.74
+The rent for your apartment was raised. You cannot afford it and live in a box.,x,0,1,-4,,,,,,,,,,FALSE,-3,0,0,-3,-3,-1.26
+There is no hope.,,1,1,,-1,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"You sell your Facebook profile to Russian hackers, including your friends.",,5,-3,-1,4,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You encounter a series of unfortunate events.,x,0,,-4,-4,,,,,,,,,FALSE,-8,0,0,-8,-8,-6.26
+"Meditate for 3 hours, still feel anxious.",,3,-1,1,,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"You illegally download 3 seasons of Lost, binge-watch it.",,5,1,-1,,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You are black.,x,0,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+Get hit by a smart car. Nothing happens.,x,0,0,0,0,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You go surfing. On the internet.,,1,1,-1,,,,,,,,,,FALSE,0,0,0,0,0,1.74
+You drink shitty wine by yourself at 2 am on a Wednesday. You are a disgrace.,,3,-3,2,1,,,,,,,,,FALSE,0,0,0,0,0,1.74
+"You help cops find a lost pig, making you a national hero.",,5,2,,-1,,,,,,,,,FALSE,1,0,0,1,0.2,1.94
+Drunk call your mom.,,5,,-2,3,3,,-3,,,,,,FALSE,1,0,0,1,0.2,1.94
+"Quit your job because you hate the system, bro. ",,4,2,2,-3,,,,,,,,,FALSE,1,0,0,1,0.25,1.99
+Grow a beard. This improves your self worth for some reason.,,4,2,1,,,,,,-1,,,,FALSE,3,0,-2,1,0.25,1.99
+Get a good job. Just kidding. ,,3,,1,,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+Go to a rave. Get stepped on.,,3,3,-1,-1,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+You take responsibility at work.,,3,1,-2,2,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+Buy a unicycle. Sell it. Buy a bicycle like a normal fucking person.,,3,,3,-2,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+"You got a viral song stuck in your head, get punched by all friends but feel happy about it.",,3,3,-2,,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+"Today is earth day, you celebrate offline and alone.",,3,-2,3,,,,,,,,,,FALSE,1,0,0,1,0.3333333333,2.07
+Remind all of your friends in Facebook to support your Indiegogo campaign.,,3,,,3,,,,,-1,,,,FALSE,3,0,-2,1,0.3333333333,2.07
+Get a life. For 2 days.,,5,-3,5,,,,,,,,,,FALSE,2,0,0,2,0.4,2.14
+You visit Brazil for carnival. You can't find it.,,4,3,,-1,,,,,,,,,FALSE,2,0,0,2,0.5,2.24
+"You go on a much needed vacation, despite being unemployed.",,4,1,3,-2,,,,,,,,,FALSE,2,0,0,2,0.5,2.24
+Get an escort in Vegas.,,2,2,-2,-2,-1,-1,3,,,,,,FALSE,-2,3,0,1,0.5,2.24
+You have a good day. Everybody hates you.,,2,-1,2,,,,,,1,-1,,,FALSE,1,0,0,1,0.5,2.24
+Have a party at your shitty apartment.,,2,2,,-1,,,,,1,-1,,-1,FALSE,1,0,0,1,0.5,2.24
+Give up smoking for 3 weeks. Be very proud of yourself.,,2,-2,3,,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+Eat instant ramen all week.,,2,-1,-1,3,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+There's an elephant in the room. You ignore it.,,2,2,-1,,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+You find a cool new coffee place. It closes down.,,2,2,,-1,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+You thought you didn't need health insurance.,,2,,3,-2,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+"You complete your PhD in African Philosophy. Strangely, employers don't seem to care.",,2,,-1,2,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+Get a job at a hip new startup. They don't make any money.,,2,-1,,2,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+Sell energy bracelets to your idiot friends.,,2,,,3,,,,,,,-1,,FALSE,3,0,-2,1,0.5,2.24
+You can't decide whether to go for a broccoli or kale smoothie.,,2,,-1,2,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+Pretend to appreciate Whiskey because you have low self-esteem.,  ,2,2,,-1,,,,,,,,,FALSE,1,0,0,1,0.5,2.24
+You think the world is flat. You tweet insulting messages to scientists who are sheep.,,5,3,,,,,,,,,,,FALSE,3,0,0,3,0.6,2.34
+Learn an awesome yo-yo trick. You are still unemployed.,,5,3,,,,,,,,,,,FALSE,3,0,0,3,0.6,2.34
+Donate your kidney to a friend.,,5,,-3,3,,4,-3,,,,,,FALSE,0,3,0,3,0.6,2.34
+Go to Movie Premier. Watch international movie nobody gives a shit about.,,3,4,,-2,,,,,,,,,FALSE,2,0,0,2,0.6666666667,2.41
+Loudly promote charitable cause on social media. Don't actually donate yourself.,,3,2,-1,1,,,,,,,,-1,FALSE,2,0,0,2,0.6666666667,2.41
+Claim you like PBR. You do not like PBR.,,4,1,1,1,,,,,,,,,FALSE,3,0,0,3,0.75,2.49
+Become a guru.,,5,2,,4,,,,,1,1,-3,,FALSE,6,0,-2,4,0.8,2.54
+Your internet provider went broke. You actually go outside.,,5,2,-1,3,,,,,,,,,FALSE,4,0,0,4,0.8,2.54
+Oprah accidentally tweets your Twitter name.,,1,3,-2,,,,,,,,,,FALSE,1,0,0,1,1,2.74
+"Uber is on strike, go play bowling.",,1,1,1,-1,,,,,,,,,FALSE,1,0,0,1,1,2.74
+Pretend to not like popular music.,,1,1,,,,,,,,,,,FALSE,1,0,0,1,1,2.74
+You find money on the road and tell nobody. Dick.,,1,,-2,3,,,,,,,,,FALSE,1,0,0,1,1,2.74
+You realise you're 30 and living with your mother.,x,0,-4,,2,,,,,,,,,FALSE,-2,0,0,-2,-2,-0.26
+You hurt yourself longboarding. Pretend it happened surfing.,,1,2,-1,,,,,,,,,,FALSE,1,0,0,1,1,2.74
+You lie about your height in your Tinder profile.,,1,1,,,,,,,,,,,FALSE,1,0,0,1,1,2.74
+Your mom adds you to her Netflix account.,x,0,,-4,1,,,,,,,,,FALSE,-3,0,0,-3,-3,-1.26
+Drunk call your boss.,,2,,,2,,,,-2,,,,,FALSE,2,0,0,2,1,2.74
+Go to the gym once. Post inspirational photo.,,2,2,1,-1,,,,,,,,,FALSE,2,0,0,2,1,2.74
+Vote for a Conservative political candidate.,,2,2,,2,,,,,,-2,1,-1,FALSE,4,0,-2,2,1,2.74
+You are not caught growing weed in your attic.,,2,3,-4,3,,,,,,,,,FALSE,2,0,0,2,1,2.74
+Become enlightened.,,5,3,3,-1,,,,,,,,,FALSE,5,0,0,5,1,2.74
+New taxes. You rant about it on social media.,,3,3,,-2,,,,,3,,-2,-1,FALSE,1,0,2,3,1,2.74
+"Join Greenpeace to save dinosaurs, be considered stupid by your friends.",,3,-3,3,3,,,,,,,,,FALSE,3,0,0,3,1,2.74
+Win the Lottery. Lose most of it to a ponzi scheme on the way home.,,5,2,-2,3,,,,,-1,,2,,FALSE,3,0,2,5,1,2.74
+You play Cards Against Humanity alone because you have no friends.,,2,,2,,,,,,,,,,FALSE,2,0,0,2,1,2.74
+You see Kim Jong-Un at Disney Land.,,1,,1,,,,,,,,,,FALSE,1,0,0,1,1,2.74
+We discover the Higgs Boson. You pretend to understand what this means.,,2,2,,,,,,,,,,,FALSE,2,0,0,2,1,2.74
+You did the laundry by yourself. Tweet about it.,,2,2,,,,,,,,,,,FALSE,2,0,0,2,1,2.74
+You pay off your student loans. Now you just have a useless degree.,,5,2,2,2,,,,,,,,,FALSE,6,0,0,6,1.2,2.94
+You open a bar without being a total hipster idiot. It does moderately well.,,5,2,-1,3,,,,,2,,-1,-1,FALSE,4,0,2,6,1.2,2.94
+You stop eating like a fat pig for one day.,,3,,4,,,,,,,,,,FALSE,4,0,0,4,1.333333333,3.07
+You start growing flowers. Tell everyone about this.,,3,,,2,,,,,1,,,,FALSE,2,0,2,4,1.333333333,3.07
+You find an ancient treasure. You give some away to make people like you.,,5,,,3,,,,,,,2,,FALSE,3,0,4,7,1.4,3.14
+You are a plastic surgeon. Everyone hates you.,,4,,2,2,,,,,-3,2,2,,FALSE,4,0,2,6,1.5,3.24
+Delete your facebook profile. Don't brag about it.,,2,,3,,,,,,,,,,FALSE,3,0,0,3,1.5,3.24
+Convince somebody that going to Siberia is good idea.,,5,3,,-3,3,,,-3,,,,,FALSE,0,9,0,9,1.8,3.54
+You accidentally post a YouTube video of you crying and eating cake. It goes viral.,,1,,,2,,,,,,,,,FALSE,2,0,0,2,2,3.74
+You are Asian.,x,0,,,2,,,,,,,,,FALSE,2,0,0,2,2,3.74
+Convince your friend to watch Game of Thrones.,,1,2,,,,,,-3,,,,,FALSE,2,0,0,2,2,3.74
+Delete your facebook profile. Brag about it.,,1,-1,3,,,,,,,,,,FALSE,2,0,0,2,2,3.74
+You are fired from McDonalds.,x,0,,3,-4,,,,,,,,,FALSE,-1,0,0,-1,-1,0.74
+You have no friends.,x,0,-5,,,,,,,2,,,,FALSE,-5,0,4,-1,-1,0.74
+New Game of Thrones episode is out today.,,3,3,,-1,,,,,3,,-1,,FALSE,2,0,4,6,2,3.74
+You bring a member of the opposite sex home. They leave immediately.,,2,-1,1,1,-1,2,,1,,,,,FALSE,1,3,0,4,2,3.74
+You start a book club with your friends. Everyone pretends to read.,,3,2,,,,,,,2,,,,FALSE,2,0,4,6,2,3.74
+You manage to avoid death and taxes.,,4,,4,4,,,,,,,,,FALSE,8,0,0,8,2,3.74
+Your lesbian life partner asks to spend time together.,,5,2,,-3,2,2,,,,,,,FALSE,-1,12,0,11,2.2,3.94
+"Due to a computer glitch, everyone wins the lottery.",,5,,,5,,,,,,,5,,FALSE,5,0,10,15,3,4.74
+You are actually somewhat useful to society.,,2,2,2,2,,,,,,,,,FALSE,6,0,0,6,3,4.74
+The pub nearby has free beer. You stand in queue for 4 hours on a Wednesday.,,3,,,3,,,,,,,3,-2,FALSE,3,0,6,9,3,4.74
+Get married in Vegas because you saw it on Friends.,,2,2,,-1,2,,,-1,,,,,FALSE,1,6,0,7,3.5,5.24
+Vote for Socialist political candidate.,,2,2,,2,,,,,1,2,-1,,FALSE,4,0,4,8,4,5.74
+"After a wild party, wake up with your friend's significant other.",,4,-1,3,-1,,3,3,-1,,,,,FALSE,1,18,0,19,4.75,6.49
+Someone publically insults you. You angrily blog about it later.,,1,-3,-1,,3,,,,,,,,FALSE,-4,9,0,5,5,6.74
+Strong alcohol tax is increased by 1%.,x,0,-3,-3,-3,,,,,-3,-3,-3,,FALSE,-9,0,-18,-27,-27,-25.26
+Accidentally post sexy photo of your ex on Instagram. They get famous.,,2,2,,,2,,2,-2,,,,,FALSE,2,12,0,14,7,8.74
+You are perfectly average and in all ways largely unimpressive.,x,-1,-1,-1,,,,,,-1,-1,-1,-1,FALSE,-2,0,-6,-8,8,9.74
+You finally start getting invited to parties. As designated driver.,,1,1,1,,,,,,1,4,,,FALSE,2,0,10,12,12,13.74
+Win a company retreat challenge. Your price is a can of sardines.,,2,-3,,2,,,,,-3,,2,,,,,,,,

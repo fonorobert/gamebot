@@ -2,10 +2,12 @@ import _ from 'lodash'
 import colors from '../utils/colors'
 import guess from './guess'
 import story from './story'
+import crisis from './crisis'
 
 const gameLibrary = {
   guess,
-  story
+  story,
+  crisis
 }
 
 class GameLibrary {
