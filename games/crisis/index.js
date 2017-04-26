@@ -15,12 +15,20 @@ export default function (config, { sendMessage, onFinish }, { maxIterations = 3 
     start () {
       if (!this.cards) {
         this.load().then((cards) => {
-          sendMessage(config, 'EXISTENTIAL CRISIS')
-          sendMessage(config, `Loaded ${cards.length} cards`)
           this.cards = _.shuffle(cards)
           this.initPlayers()
+          const playerNames = state.players.reduce((result, player, index, arr) => {
+            if (index === 0) return result += player.name
+            if (index === arr.length - 1) return result += ` and ${player.name}`
+            return result += `, ${player.name}`
+          }, '')
+          sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS`)
         })
       }
+    }
+
+    getPlayer (id) {
+      return _.find(state.players, { id })
     }
 
     initPlayers () {
@@ -32,16 +40,6 @@ export default function (config, { sendMessage, onFinish }, { maxIterations = 3 
         })
       })
       state.currentPlayer = Math.floor(Math.random() * state.players.length)
-
-      const printCards = (cards) => {
-        return cards.reduce((result, card, index) => {
-          return result += `${index + 1}. ${card.description} \n`
-        }, '')
-      }
-
-      state.players.forEach((player) => {
-        sendMessage(config, `${player.name}, your cards are: \n${printCards(player.cards)}`)
-      })
     }
 
     takeCard () {

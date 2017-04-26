@@ -105,6 +105,19 @@ controller.on('ambient', (bot, message) => {
   game.processMessage(message)
 });
 
+controller.on('slash_command', (bot, message) => {
+  const game = gameLibrary.findRunningGame(message.channel)
+  const printCards = (cards) => {
+    return cards.reduce((result, card, index) => {
+      return result += `${index + 1}. ${card.description} \n`
+    }, 'Your cards are:\n')
+  }
+  if (game) {
+    const player = game.getPlayer(message.user_id)
+    bot.replyPrivate(message, printCards(player.cards))
+  }
+})
+
 const getMpimMembers = (bot, message) => {
   return new Promise((resolve, reject) => {
     bot.api.mpim.list({}, (err, resp) => {
