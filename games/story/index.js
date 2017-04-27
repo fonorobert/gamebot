@@ -1,15 +1,16 @@
 import _ from 'lodash'
+import { sendMessage } from '../../utils/chat'
 import colors from '../../utils/colors'
 
 const TIME_LIMIT = 40000
 const STORY_CHANNEL = "ex-machina"
 
-export default function (config, { sendMessage, onFinish }, { maxIterations=3 }) {
-  const { bot, channel, users, savedState } = config
+export default function (config, { saveState, onFinish }, { maxIterations = 3 } = {}) {
+  const { bot, channel, users } = config
+  let state = {}
 
-  const state = savedState || {}
   return {
-    start: function () {
+    start () {
       if (users.length < 2) {
         sendMessage(config, 'At least two users are needed.')
         return onFinish(channel)
@@ -26,6 +27,11 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       sendMessage(config, `Contribute to a story with 3 words. *${this.getCurrentUserName()}* starts`)
     },
 
+    recover (recoveredState) {
+      state = recoveredState
+      sendMessage(config, `I'm online again, sorry for the hiccup. It is still *${this.getCurrentUserName()}*'s turn.`)
+    },
+
     getCurrentUserName () {
       return users[state.user].name
     },
@@ -34,6 +40,7 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       const nextUser = ((state.user + 1) > (_.size(users) - 1)) ? 0 : state.user + 1
       state.user = nextUser
       state.timeout = setTimeout(this.skipUser.bind(this), TIME_LIMIT)
+      saveState()
     },
 
     skipUser () {
@@ -41,7 +48,7 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       sendMessage(config, `You snooze you lose! Next is *${this.getCurrentUserName()}*`)
     },
 
-    processMessage: function (message) {
+    processMessage (message) {
       clearTimeout(state.timeout)
       if (message.text === 'THE END') {
         return this.askForTitle()
@@ -71,21 +78,27 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       }
     },
 
-    abort: function () {
+    abort () {
       this.cleanup()
+      sendMessage(config, `Oh, okay. No problem. It's fine. :simple_smile: I'll cancel the game. ʸᵒᵘ ᵖᵃʳᵗʸ ᵖᵒᵒᵖᵉʳ`, colors.error)
     },
 
-    serialize: function () {
+    getGameId () {
+      return 'story'
     },
 
-    askForTitle: function() {
+    serialize () {
+      return { state: _.omit(state, 'timeout'), users }
+    },
+
+    askForTitle () {
       state.processingTitles = true
       state.titles = {}
       sendMessage(config, `Nice one! Now all I need is the title. Anyone?`)
       state.titleTimeout = setTimeout(this.handleTitleTimeout.bind(this), TIME_LIMIT)
     },
 
-    processTitle: function(message) {
+    processTitle (message) {
       if (state.titles[message.user]) return sendMessage(config, 'I mean... Anyone ELSE?')
       state.titles[message.user] = message.text.trim()
       clearTimeout(state.titleTimeout)
@@ -97,7 +110,7 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       return sendMessage(config, 'Good. Anyone else?')
     },
 
-    handleTitleTimeout: function() {
+    handleTitleTimeout () {
       if (Object.keys(state.titles).length === 0) {
         sendMessage(config, 'Still need that title, guys!')
         state.titleTimeout = setTimeout(this.handleTitleTimeout.bind(this), TIME_LIMIT)
@@ -107,7 +120,7 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       this.finish()
     },
 
-    finish: function () {
+    finish () {
       let authors = _.map(users, (user) => '@' + user.name).join(', ')
       const lastComma = authors.lastIndexOf(', ')
       authors = authors.substring(0, lastComma) + ' and ' + authors.substring(lastComma + 2)
@@ -132,7 +145,7 @@ export default function (config, { sendMessage, onFinish }, { maxIterations=3 })
       onFinish(channel)
     },
 
-    cleanup: function () {
+    cleanup () {
       clearTimeout(state.timeout)
     }
   }

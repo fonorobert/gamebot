@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import fs from 'fs'
+import { sendMessage } from '../../utils/chat'
 import Player from './player.js'
 
-export default function (config, { sendMessage, onFinish }, { maxIterations = 3 }) {
-  const { bot, channel, users, savedState } = config
-
-  const state = savedState || {}
+export default function (config, { saveState, onFinish }, { maxIterations = 3 } = {}) {
+  const { bot, channel, users } = config
+  let state = {}
 
   class ExistentialCrisis {
     constructor () {

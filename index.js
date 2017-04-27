@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import gameLibrary from './games'
+import { sendMessage } from './utils/chat'
+import colors from './utils/colors'
 
 /**
  * Define a function for initiating a conversation on installation
@@ -50,10 +52,33 @@ if (process.env.TOKEN || process.env.SLACK_TOKEN) {
   process.exit(1);
 }
 
+/**
+ * Hook game library to the bot controller and try to recover game state
+ */
+gameLibrary.setController(controller)
 
 /**
  * Connection related stuff
  */
+controller.on('rtm_open', function (bot) {
+  console.log('** The RTM api just opened');
+
+  controller.storage.teams.get('gamebot', (err, recoveredState) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+
+    if (recoveredState && recoveredState.gameLibrary && _.keys(recoveredState.gameLibrary).length) {
+      _.each(recoveredState.gameLibrary, (recoveredGame, channel) => {
+        const { id, data } = recoveredGame
+        const { state, users } = data
+        gameLibrary.continue(id, state, { bot, channel, users })
+      })
+    }
+  })
+});
+
 controller.on('rtm_close', function (bot) {
   console.log('** The RTM api just closed');
   // TODO: try to reconnect with exponential back-off
@@ -67,18 +92,11 @@ controller.on('bot_channel_join', function (bot, message) {
   //bot.reply(message, "I'm here!")
 });
 
-controller.hears('hello', 'direct_message,direct_mention', function (bot, message) {
-  bot.reply(message, {
-    "attachments": [
-      {
-        "fallback": "test test test",
-        "text": "test test test",
-        "color": "#7CD197"
-      }
-    ]
-  });
+controller.hears('abort all current games yes i am sure', 'direct_message', function (bot, message) {
+  gameLibrary.abortAll()
 });
 
+/*
 controller.hears('create room with (.*)', 'direct_message', function (bot, message) {
   const players = message.match[1].split(/[,\s]+/)
   //players = validate(players)
@@ -86,17 +104,35 @@ controller.hears('create room with (.*)', 'direct_message', function (bot, messa
   // invite users to group chat
   // send message to chat telling how to start game
 });
+*/
 
-controller.hears('start (.*)', 'direct_mention,direct_message', function (bot, message) {
+controller.hears('help', 'direct_mention,direct_message', function (bot, message) {
+  let help = ''
+  _.each(gameLibrary.listGames(), (game) => {
+    help += `*play ${game}* - starts a ${game} game\n`
+  })
+  help += '*game over* - aborts current game\n'
+
+  bot.reply(message, help)
+})
+
+controller.hears('play (.*)', 'direct_mention,direct_message', function (bot, message) {
   var params = message.match[1].split(/[,\s]+/)
-  var game = params[0]
+  var game = _.trim(params[0])
   var maxIterations = params[1]
 
-  bot.reply(message, `starting *${game}*`);
-  getMpimMembers(bot, message).then((users) => {
+  if (!_.includes(gameLibrary.listGames(), game)) {
+    return sendMessage({ bot, channel: message.channel }, `Game not found: *${game}*.`, colors.error);
+  }
+
+  getMpimMembers(bot, message.channel).then((users) => {
     gameLibrary.start(game, { bot, channel: message.channel, users }, { maxIterations })
   })
 });
+
+controller.hears('game over', 'direct_mention,direct_message', function (bot, message) {
+  gameLibrary.abort({ bot, channel: message.channel })
+})
 
 controller.on('ambient', (bot, message) => {
   const game = gameLibrary.findRunningGame(message.channel)
@@ -118,10 +154,10 @@ controller.on('slash_command', (bot, message) => {
   }
 })
 
-const getMpimMembers = (bot, message) => {
+const getMpimMembers = (bot, channel) => {
   return new Promise((resolve, reject) => {
     bot.api.mpim.list({}, (err, resp) => {
-      const mpim = _.find(resp.groups, { id: message.channel })
+      const mpim = _.find(resp.groups, { id: channel })
       if (!mpim) return resolve([])
 
       const userPromises = mpim.members

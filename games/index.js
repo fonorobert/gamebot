@@ -1,11 +1,9 @@
 import _ from 'lodash'
 import colors from '../utils/colors'
-import guess from './guess'
 import story from './story'
 import crisis from './crisis'
 
 const gameLibrary = {
-  guess,
   story,
   crisis
 }
@@ -16,63 +14,75 @@ class GameLibrary {
   }
 
   start (gameId, config, gameOptions) {
-    const createGame = gameLibrary[gameId]
-    // error msg + abort if game already running in that channel/group chat
-    const game = createGame(config, {
-      onFinish: this.onFinish.bind(this),
-      sendMessage: this.sendMessage.bind(this)
-    }, gameOptions)
-
-    this.games[config.channel] = game
+    const game = this.createGame(gameId, config, gameOptions)
     game.start()
   }
 
-  stop (config) {
-    const game = {} // find the game
-    game.stop()
+  continue (gameId, state, config) {
+    const game = this.createGame(gameId, config)
+    game.recover(state)
+  }
+
+  createGame (gameId, config, gameOptions) {
+    // TODO error msg + abort if game already running in that channel/group chat
+
+    const createGame = gameLibrary[gameId]
+    const game = createGame(config, {
+      onFinish: this.onFinish.bind(this),
+      saveState: this.saveState.bind(this)
+    }, gameOptions)
+
+    const requiredFunctions = ['start', 'recover', 'abort', 'getGameId', 'serialize']
+    const missingFunctions = _.difference(requiredFunctions, _.keys(game))
+    if (missingFunctions.length > 0) throw new Error('Missing functions: ' + missingFunctions)
+
+    this.games[config.channel] = game
+
+    return game
+  }
+
+  abort (config) {
+    const { bot, channel } = config
+    this.games[channel].abort()
+    this.onFinish(channel)
+  }
+
+  abortAll () {
+    _.each(this.games, (game, config) => {
+      abort(config)
+    })
   }
 
   saveAll () {
-    const state = _.map(games, (game, channel) => ({ [channel]: game.serialize() }))
-
-    // persist somewhere
-  }
-
-  loadAll () {
-    games = {} // load from disk
+    const state = _.reduce(this.games, (result, game, channel) => {
+      result[channel] = {
+        id: game.getGameId(),
+        data: game.serialize()
+      }
+      return result
+    }, {})
+    this.controller.storage.teams.save({ id: 'gamebot', gameLibrary: state })
   }
 
   findRunningGame (channel) {
     return this.games[channel]
   }
 
-  sendMessage (config, ...args) {
-    if (_.isString(args[0])) {
-      console.log('simple', args)
-      this.sendMessageSimple(config, ...args)
-    } else {
-      console.log('advanced', args)
-      this.sendMessageAdvanced(config, ...args)
-    }
-  }
-
-  sendMessageSimple ({ bot, channel }, text, color = colors.success) {
-    bot.say({ channel, attachments: [
-      {
-        fallback: text,
-        text: text,
-        color,
-        "mrkdwn_in": ["text"]
-      }
-    ]})
-  }
-
-  sendMessageAdvanced ({ bot, channel }, message) {
-    bot.say(_.assign({}, { channel }, message))
+  saveState () {
+    this.saveAll()
   }
 
   onFinish (channel) {
     this.games = _.omit(this.games, channel)
+    this.saveAll()
+  }
+
+  setController (controller) {
+    this.controller = controller
+  }
+
+  listGames () {
+    return _.keys(gameLibrary)
   }
 }
 
