@@ -148,9 +148,12 @@ controller.on('slash_command', (bot, message) => {
       return result += `${index + 1}. ${card.description} \n`
     }, 'Your cards are:\n')
   }
+
   if (game) {
-    const player = game.getPlayer(message.user_id)
-    bot.replyPrivate(message, printCards(player.cards))
+    if (message.text === 'show cards') {
+      const player = game.getPlayer(message.user_id)
+      bot.replyPrivate(message, printCards(player.cards))
+    }
   }
 })
 

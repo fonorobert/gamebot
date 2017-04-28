@@ -22,13 +22,21 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
             if (index === arr.length - 1) return result += ` and ${player.name}`
             return result += `, ${player.name}`
           }, '')
-          sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS`)
+          const currentPlayer = state.players[state.currentPlayer]
+          sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS. ${currentPlayer.name} starts\n\n ${this.printPlayerStats()}`)
         })
       }
     }
 
     getPlayer (id) {
       return _.find(state.players, { id })
+    }
+
+    printPlayerStats () {
+      const playersStats = state.players.map((p) => {
+        return `${p.name}. time ${p.time}, wealth: ${p.wealth}, health: ${p.health}, social: ${p.social}`
+      }).join('\n')
+      return `Players stats are:\n ${playersStats}`
     }
 
     initPlayers () {
@@ -39,7 +47,8 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
           cards
         })
       })
-      state.currentPlayer = Math.floor(Math.random() * state.players.length)
+      //state.currentPlayer = Math.floor(Math.random() * state.players.length)
+      state.currentPlayer = 0
     }
 
     takeCard () {
@@ -62,13 +71,28 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       const PLAY_REGEX = /^play\s(\d.*)$/
       const currentPlayer = this.getCurrentPlayer()
       if (message.user === currentPlayer.id) {
-
         const playMatch = message.text.match(PLAY_REGEX)
         if (playMatch) {
           const cardIndex = +playMatch[1]
-          console.log(cardIndex)
+          const card = currentPlayer.cards[cardIndex - 1]
+          sendMessage(config, `${currentPlayer.name} plays ${card.description}`)
+          currentPlayer.playCard(card)
+          const others = state.players.filter((p) => p.id !== currentPlayer.id)
+          others.forEach((o) => o.applyOtherEffect(card))
+
+          currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
+        } else if (message.text === 'pass') {
+
         }
       }
+    }
+
+    handlePlayCard () {
+
+    }
+
+    handlePassTurn () {
+
     }
 
     load () {
@@ -93,13 +117,13 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
             { name: 'othersTime', type: Number, default: 0 }
           ]
 
-          const cardFromLine = (line) => {
+          const cardFromLine = (line, cardIndex) => {
             const values = line.split(',')
             return fields.reduce((card, field, index) => {
               const type = field.type
               card[field.name] = type(values[index]) || field.default
               return card
-            }, {})
+            }, { id: cardIndex })
           }
           const cards = lines
             .split('\n')
