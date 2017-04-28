@@ -10,22 +10,34 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
   class ExistentialCrisis {
     constructor () {
       this.cards = null
+
+      this.start = this.start.bind(this)
+      this.recover = this.recover.bind(this)
+      this.abort = this.abort.bind(this)
+      this.getGameId = this.getGameId.bind(this)
+      this.serialize = this.serialize.bind(this)
+      this.init = this.init.bind(this)
     }
 
     start () {
       if (!this.cards) {
-        this.load().then((cards) => {
-          this.cards = _.shuffle(cards)
-          this.initPlayers()
-          const playerNames = state.players.reduce((result, player, index, arr) => {
-            if (index === 0) return result += player.name
-            if (index === arr.length - 1) return result += ` and ${player.name}`
-            return result += `, ${player.name}`
-          }, '')
-          const currentPlayer = state.players[state.currentPlayer]
-          sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS. ${currentPlayer.name} starts\n\n ${this.printPlayerStats()}`)
-        })
+        this.load().then(this.init)
+      } else {
+        this.init(this.cards)
       }
+    }
+
+    init (cards) {
+      this.cards = _.shuffle(cards)
+      this.initPlayers()
+      const playerNames = state.players.reduce((result, player, index, arr) => {
+        if (index === 0) return result += player.name
+        if (index === arr.length - 1) return result += ` and ${player.name}`
+        return result += `, ${player.name}`
+      }, '')
+      const currentPlayer = state.players[state.currentPlayer]
+      sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS. ${currentPlayer.name} starts\n\n ${this.printPlayerStats()}`)
+
     }
 
     getPlayer (id) {
@@ -64,6 +76,22 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
     }
 
     stop () {
+
+    }
+
+    recover () {
+
+    }
+
+    abort () {
+
+    }
+
+    getGameId () {
+
+    }
+
+    serialize () {
 
     }
 

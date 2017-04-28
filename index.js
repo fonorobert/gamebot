@@ -141,11 +141,25 @@ controller.on('ambient', (bot, message) => {
   game.processMessage(message)
 });
 
+const printCard = (c) => {
+  return `
+    ------------------------------------
+    ${c.description}\n
+    you\n
+    ${c.selfWealth}:moneybag: ${c.selfHealth}:heart: ${c.selfSocial}:busts_in_silhouette: ${c.timeCost}:clock1:\n
+    someone\n
+    ${c.someoneWealth}:moneybag: ${c.someoneHealth}:heart: ${c.someoneSocial}:busts_in_silhouette: ${c.someoneTime}:clock1:\n
+    others\n
+    ${c.othersWealth}:moneybag: ${c.othersHealth}:heart: ${c.othersSocial}:busts_in_silhouette: ${c.othersTime}:clock1:\n
+    ------------------------------------
+  `
+}
+
 controller.on('slash_command', (bot, message) => {
   const game = gameLibrary.findRunningGame(message.channel)
   const printCards = (cards) => {
     return cards.reduce((result, card, index) => {
-      return result += `${index + 1}. ${card.description} \n`
+      return result += `${index + 1}.${printCard(card)} \n`
     }, 'Your cards are:\n')
   }
 
