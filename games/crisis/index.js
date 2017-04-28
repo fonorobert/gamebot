@@ -46,7 +46,7 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
 
     printPlayerStats () {
       const playersStats = state.players.map((p) => {
-        return `${p.name}. time ${p.time}, wealth: ${p.wealth}, health: ${p.health}, social: ${p.social}`
+        return `${p.name}. ${p.time}:clock1: ${p.wealth}:moneybag: ${p.health}:heart: ${p.social}:busts_in_silhouette:`
       }).join('\n')
       return `Players stats are:\n ${playersStats}`
     }
@@ -136,22 +136,22 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       const currentPlayer = this.getCurrentPlayer()
       if (message.user === currentPlayer.id) {
         const playMatch = message.text.match(PLAY_REGEX)
-        if (playMatch) {
-          const cardIndex = +playMatch[1]
-          const card = currentPlayer.cards[cardIndex - 1]
-          sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
-          currentPlayer.playCard(card)
-          const others = state.players.filter((p) => p.id !== currentPlayer.id)
-          others.forEach((o) => o.applyOtherEffect(card))
-
-          currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
-        } else if (message.text === 'pass') {
-
-        }
+        if (playMatch) this.handlePlayCard(+playMatch[1])
+        if (message.text === 'pass') this.handlePassTurn()
       }
     }
 
-    handlePlayCard () {
+    handlePlayCard (cardIndex) {
+      const currentPlayer = this.getCurrentPlayer()
+      const card = currentPlayer.cards[cardIndex - 1]
+
+      if (card.timeCost > currentPlayer.time) return sendMessage(config, 'Not enough time to play this card')
+      sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
+      currentPlayer.playCard(card)
+      const others = state.players.filter((p) => p.id !== currentPlayer.id)
+      others.forEach((o) => o.applyOtherEffect(card))
+
+      currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
 
     }
 
