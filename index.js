@@ -174,6 +174,7 @@ controller.on('slash_command', (bot, message) => {
 const getMpimMembers = (bot, channel) => {
   return new Promise((resolve, reject) => {
     bot.api.mpim.list({}, (err, resp) => {
+      if (err) console.log(err)
       const mpim = _.find(resp.groups, { id: channel })
       if (!mpim) return resolve([])
 

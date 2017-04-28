@@ -95,6 +95,42 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
 
     }
 
+    listToString (list) {
+      const printItem = (i) => `${i.value} ${i.name}`
+
+      if (!list.length) return ''
+      if (list.length === 1) return printItem(list[0])
+
+      return list.reduce((result, item, index, arr) => {
+        if (index === arr.length - 1) return result + ' and ' + printItem(item)
+        if (index === 0) return result + printItem(item)
+        return result + ', ' + printItem(item)
+      }, '')
+    }
+
+    printSelfEffects (card) {
+      const displayNames = ['time', 'social', 'health', 'money']
+      const selfStats = ['timeCost', 'selfSocial', 'selfHealth', 'selfWealth']
+
+      const stats = selfStats.map((stat, index) => {
+        return { name: displayNames[index], value: card[stat] }
+      })
+      const positiveEffects = stats.filter((stat) => stat.value > 0)
+      const negativeEffects= stats.filter((stat) => stat.value < 0)
+
+      let result = ''
+      if (positiveEffects) {
+        result += ` gained ${this.listToString(positiveEffects)}`
+      }
+
+      if (negativeEffects) {
+        if (result) result += ' and '
+        result += `lost ${this.listToString(negativeEffects)}`
+      }
+
+      return result
+    }
+
     processMessage (message) {
       const PLAY_REGEX = /^play\s(\d.*)$/
       const currentPlayer = this.getCurrentPlayer()
@@ -103,7 +139,7 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
         if (playMatch) {
           const cardIndex = +playMatch[1]
           const card = currentPlayer.cards[cardIndex - 1]
-          sendMessage(config, `${currentPlayer.name} plays ${card.description}`)
+          sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
           currentPlayer.playCard(card)
           const others = state.players.filter((p) => p.id !== currentPlayer.id)
           others.forEach((o) => o.applyOtherEffect(card))
