@@ -144,7 +144,7 @@ controller.on('ambient', (bot, message) => {
 const printCard = (c) => {
   return `
     ------------------------------------
-    ${c.description}\n
+    ${c.isEvent ? ':zap:' : ''} ${c.description}\n
     you\n
     ${c.selfWealth}:moneybag: ${c.selfHealth}:heart: ${c.selfSocial}:busts_in_silhouette: ${c.timeCost}:clock1:\n
     someone\n

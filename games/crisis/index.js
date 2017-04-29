@@ -126,8 +126,10 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
         const alivePlayerNames = state.players.map((p) => p.name)
         if (alivePlayerNames.length === 1) {
           sendMessage(config, `${deadPlayerNames.join(', ')} died. ${alivePlayerNames.join(', ')} won!`)
+          this.finish()
         } else if (alivePlayerNames.length === 0) {
           sendMessage(config, `${deadPlayerNames.join(', ')} died. Everyone is dead!`)
+          this.finish()
         } else {
           sendMessage(config, `${deadPlayerNames.join(', ')} died. ${alivePlayerNames.join(', ')} still struggling`)
         }
@@ -149,8 +151,11 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
     handlePlayCard (cardIndex) {
       const currentPlayer = this.getCurrentPlayer()
       const card = currentPlayer.cards[cardIndex - 1]
+      const hasEventCards = currentPlayer.cards.some((c) => c.isEvent)
 
-      if (card.timeCost > currentPlayer.time) return sendMessage(config, 'Not enough time to play this card')
+      if (hasEventCards && !card.isEvent) return sendMessage(config, 'You must play the event card first')
+
+      if (!card.isEvent && (card.timeCost > currentPlayer.time)) return sendMessage(config, 'Not enough time to play this card')
       sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
       currentPlayer.playCard(card)
       const others = state.players.filter((p) => p.id !== currentPlayer.id)
@@ -161,10 +166,17 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
 
     handlePassTurn () {
       const currentPlayer = this.getCurrentPlayer()
+      const hasEventCards = currentPlayer.cards.some((c) => c.isEvent)
+
+      if (hasEventCards) return sendMessage(config, 'You can\' pass while you still have event card(s)')
       currentPlayer.resetTurn()
       this.nextPlayer()
       const nextPlayer = this.getCurrentPlayer()
       sendMessage(config, `Next! ${nextPlayer.name}, your move.`)
+    }
+
+    finish () {
+      onFinish(channel)
     }
 
     load () {
