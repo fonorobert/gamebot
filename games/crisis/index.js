@@ -138,10 +138,13 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
 
     processMessage (message) {
       const PLAY_REGEX = /^play\s(\d)\s*(?:target\s(.*))*$/
+      const DISCARD_REGEX = /^discard\s(\d)$/
       const currentPlayer = this.getCurrentPlayer()
       if (message.user === currentPlayer.id) {
         const playMatch = message.text.match(PLAY_REGEX)
+        const discardMatch = message.text.match(DISCARD_REGEX)
         if (playMatch) this.handlePlayCard(+playMatch[1], playMatch[2])
+        if (discardMatch) this.handleDiscard(+discardMatch[1])
         if (message.text === 'pass') this.handlePassTurn()
 
         this.checkPlayerStatus()
@@ -167,24 +170,34 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       }
 
       const targetP = _.find(state.players, { name: targetPlayer })
-      console.log('target: ', targetPlayer)
 
       sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
       currentPlayer.playCard(card)
 
       if (targetP) targetP.applySomeoneEffect(card)
-      const others = state.players.filter((p) => p.id !== currentPlayer.id && (targetP&& targetP.id !== p.id))
-      console.log('others: ', others)
+      const others = state.players.filter((p) => p.id !== currentPlayer.id && (targetP && targetP.id !== p.id))
       others.forEach((o) => o.applyOtherEffect(card))
 
       currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
     }
 
-    handlePassTurn () {
+    handleDiscard (cardIndex) {
       const currentPlayer = this.getCurrentPlayer()
       const hasEventCards = currentPlayer.cards.some((c) => c.isEvent)
 
-      if (hasEventCards) return sendMessage(config, 'You can\' pass while you still have event card(s)')
+      if (hasEventCards) return sendMessage(config, 'You must play your event cards')
+      const card = currentPlayer.cards[cardIndex - 1]
+      currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
+      currentPlayer.playCard({ timeCost: 0, selfHealth: 0, selfWealth: 0, selfSocial: -3 })
+      this.handlePassTurn(true)
+    }
+
+    handlePassTurn (afterDiscard = false) {
+      const currentPlayer = this.getCurrentPlayer()
+      const hasEventCards = currentPlayer.cards.some((c) => c.isEvent)
+
+      if (hasEventCards && !afterDiscard) return sendMessage(config, 'You can\'t pass while you still have event card(s)')
+      if (!currentPlayer.playedCard) return sendMessage(config, 'You must play a card or discard')
       currentPlayer.resetTurn()
       this.nextPlayer()
       const nextPlayer = this.getCurrentPlayer()

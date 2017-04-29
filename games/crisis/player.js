@@ -8,6 +8,7 @@ class Player {
     this.social = 8
     this.health = 8
     this.dead = false
+    this.playedCard = false
 
     this.playCard = this.playCard.bind(this)
     this.applySomeoneEffect = this.applySomeoneEffect.bind(this)
@@ -25,6 +26,7 @@ class Player {
 
   resetTurn () {
     this.time = 5
+    this.playedCard = false
   }
 
   removeTime (time) {
@@ -36,6 +38,7 @@ class Player {
     this.addToStat('wealth', card.selfWealth)
     this.addToStat('social', card.selfSocial)
     this.addToStat('health', card.selfHealth)
+    this.playedCard = true
   }
 
   applySomeoneEffect (card) {
@@ -50,10 +53,6 @@ class Player {
     this.addToStat('wealth', card.othersWealth)
     this.addToStat('social', card.othersSocial)
     this.addToStat('health', card.othersHealth)
-  }
-
-  addCard () {
-
   }
 }
 
