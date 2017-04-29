@@ -166,7 +166,11 @@ controller.on('slash_command', (bot, message) => {
   if (game) {
     if (message.text === 'show cards') {
       const player = game.getPlayer(message.user_id)
-      bot.replyPrivate(message, printCards(player.cards))
+      if (!player) {
+        bot.replyPrivate(message, 'You are not in game')
+      } else {
+        bot.replyPrivate(message, printCards(player.cards))
+      }
     } else if (message.text === 'show stats') {
       bot.replyPrivate(message, game.printPlayerStats())
     }

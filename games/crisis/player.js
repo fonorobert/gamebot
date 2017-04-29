@@ -14,12 +14,17 @@ class Player {
     this.applyOtherEffect = this.applyOtherEffect.bind(this)
     this.addToStat = this.addToStat.bind(this)
     this.removeTime = this.removeTime.bind(this)
+    this.resetTurn = this.resetTurn.bind(this)
   }
 
   addToStat (statName, value, max = 10) {
     const result = Math.max(Math.min(this[statName] + value, max), 0)
     this[statName] = result
     if (result <= 0) this.dead = true
+  }
+
+  resetTurn () {
+    this.time = 5
   }
 
   removeTime (time) {

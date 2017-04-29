@@ -72,28 +72,15 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
     }
 
     nextPlayer () {
-
+      const playerCount = state.players.length
+      state.currentPlayer = (state.currentPlayer + 1) % playerCount
     }
 
-    stop () {
-
-    }
-
-    recover () {
-
-    }
-
-    abort () {
-
-    }
-
-    getGameId () {
-
-    }
-
-    serialize () {
-
-    }
+    stop () { }
+    recover () { }
+    abort () { }
+    getGameId () { }
+    serialize () { }
 
     listToString (list) {
       const printItem = (i) => `${i.value} ${i.name}`
@@ -131,6 +118,22 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       return result
     }
 
+    checkPlayerStatus () {
+      const deadPlayers = state.players.filter((p) => p.dead)
+      if (deadPlayers.length) {
+        state.players = state.players.filter((p) => !p.dead)
+        const deadPlayerNames = deadPlayers.map((p) => p.name)
+        const alivePlayerNames = state.players.map((p) => p.name)
+        if (alivePlayerNames.length === 1) {
+          sendMessage(config, `${deadPlayerNames.join(', ')} died. ${alivePlayerNames.join(', ')} won!`)
+        } else if (alivePlayerNames.length === 0) {
+          sendMessage(config, `${deadPlayerNames.join(', ')} died. Everyone is dead!`)
+        } else {
+          sendMessage(config, `${deadPlayerNames.join(', ')} died. ${alivePlayerNames.join(', ')} still struggling`)
+        }
+      }
+    }
+
     processMessage (message) {
       const PLAY_REGEX = /^play\s(\d.*)$/
       const currentPlayer = this.getCurrentPlayer()
@@ -138,6 +141,8 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
         const playMatch = message.text.match(PLAY_REGEX)
         if (playMatch) this.handlePlayCard(+playMatch[1])
         if (message.text === 'pass') this.handlePassTurn()
+
+        this.checkPlayerStatus()
       }
     }
 
@@ -152,11 +157,14 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       others.forEach((o) => o.applyOtherEffect(card))
 
       currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
-
     }
 
     handlePassTurn () {
-
+      const currentPlayer = this.getCurrentPlayer()
+      currentPlayer.resetTurn()
+      this.nextPlayer()
+      const nextPlayer = this.getCurrentPlayer()
+      sendMessage(config, `Next! ${nextPlayer.name}, your move.`)
     }
 
     load () {
