@@ -28,7 +28,7 @@ class Player {
   }
 
   removeTime (time) {
-    this.time = Math.max(this.time - time, 0)
+    this.time = Math.max(this.time + time, 0)
   }
 
   playCard (card) {
@@ -39,7 +39,7 @@ class Player {
   }
 
   applySomeoneEffect (card) {
-    this.removeTime(card.someoneTime)
+    this.removeTime(-card.someoneTime)
     this.addToStat('wealth', card.someoneWealth)
     this.addToStat('social', card.someoneSocial)
     this.addToStat('health', card.someoneHealth)

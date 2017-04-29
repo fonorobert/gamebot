@@ -137,18 +137,23 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
     }
 
     processMessage (message) {
-      const PLAY_REGEX = /^play\s(\d.*)$/
+      const PLAY_REGEX = /^play\s(\d)\s*(?:target\s(.*))*$/
       const currentPlayer = this.getCurrentPlayer()
       if (message.user === currentPlayer.id) {
         const playMatch = message.text.match(PLAY_REGEX)
-        if (playMatch) this.handlePlayCard(+playMatch[1])
+        if (playMatch) this.handlePlayCard(+playMatch[1], playMatch[2])
         if (message.text === 'pass') this.handlePassTurn()
 
         this.checkPlayerStatus()
       }
     }
 
-    handlePlayCard (cardIndex) {
+    isTargetCard (card) {
+      const someoneFields = ['someoneHealth', 'someoneWealth', 'someoneTime', 'someoneSocial']
+      return someoneFields.some((field) => !!card[field])
+    }
+
+    handlePlayCard (cardIndex, targetPlayer) {
       const currentPlayer = this.getCurrentPlayer()
       const card = currentPlayer.cards[cardIndex - 1]
       const hasEventCards = currentPlayer.cards.some((c) => c.isEvent)
@@ -156,9 +161,20 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       if (hasEventCards && !card.isEvent) return sendMessage(config, 'You must play the event card first')
 
       if (!card.isEvent && (card.timeCost > currentPlayer.time)) return sendMessage(config, 'Not enough time to play this card')
+
+      if (this.isTargetCard(card) && !targetPlayer) {
+        return sendMessage(config, 'You must target someone when playing this card!')
+      }
+
+      const targetP = _.find(state.players, { name: targetPlayer })
+      console.log('target: ', targetPlayer)
+
       sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
       currentPlayer.playCard(card)
-      const others = state.players.filter((p) => p.id !== currentPlayer.id)
+
+      if (targetP) targetP.applySomeoneEffect(card)
+      const others = state.players.filter((p) => p.id !== currentPlayer.id && (targetP&& targetP.id !== p.id))
+      console.log('others: ', others)
       others.forEach((o) => o.applyOtherEffect(card))
 
       currentPlayer.cards = currentPlayer.cards.filter((c) => c.id !== card.id).concat([this.takeCard()])
@@ -205,7 +221,11 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
             const values = line.split(',')
             return fields.reduce((card, field, index) => {
               const type = field.type
-              card[field.name] = type(values[index]) || field.default
+              if (field.name === 'timeCost') {
+                card[field.name] = -type(values[index]) || field.default
+              } else {
+                card[field.name] = type(values[index]) || field.default
+              }
               return card
             }, { id: cardIndex })
           }
