@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/toggl/gamebot#readme",
   "engines": {
-    "node": "5.12.1",
+    "node": "5.12.",
     "npm": "3.8.6"
   },
   "dependencies": {
