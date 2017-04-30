@@ -2,6 +2,7 @@ import _ from 'lodash'
 import fs from 'fs'
 import { sendMessage } from '../../utils/chat'
 import Player from './player.js'
+import http from 'http'
 
 export default function (config, { saveState, onFinish }, { maxIterations = 3 } = {}) {
   const { bot, channel, users } = config
@@ -37,7 +38,6 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
       }, '')
       const currentPlayer = state.players[state.currentPlayer]
       sendMessage(config, `${playerNames} are having EXISTENTIAL CRISIS. ${currentPlayer.name} starts\n\n ${this.printPlayerStats()}`)
-
     }
 
     getPlayer (id) {
@@ -171,7 +171,12 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
 
       const targetP = _.find(state.players, { name: targetPlayer })
 
-      sendMessage(config, `${currentPlayer.name} plays ${card.description} They ${this.printSelfEffects(card)}`)
+      sendMessage(config, { attachments: [
+        {
+          text: `${currentPlayer.name} plays ${card.description}`,
+          image_url: `https://files.localtunnel.me/card-${card.id}.png`
+        }
+      ]})
       currentPlayer.playCard(card)
 
       if (targetP) targetP.applySomeoneEffect(card)
@@ -240,7 +245,7 @@ export default function (config, { saveState, onFinish }, { maxIterations = 3 } 
                 card[field.name] = type(values[index]) || field.default
               }
               return card
-            }, { id: cardIndex })
+            }, { id: cardIndex + 3 })
           }
           const cards = lines
             .split('\n')

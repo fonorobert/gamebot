@@ -2,7 +2,10 @@ import _ from 'lodash'
 import gameLibrary from './games'
 import { sendMessage } from './utils/chat'
 import colors from './utils/colors'
+import express from 'express'
+import lwip from 'lwip'
 
+const expressApp = express()
 /**
  * Define a function for initiating a conversation on installation
  * With custom integrations, we don't have a way to find out who installed us, so we can't message them :(
@@ -56,6 +59,29 @@ if (process.env.TOKEN || process.env.SLACK_TOKEN) {
  * Hook game library to the bot controller and try to recover game state
  */
 gameLibrary.setController(controller)
+
+expressApp.use(express.static('public'))
+expressApp.listen(3001, () => console.log('Running on port 3001'))
+
+expressApp.get('/cards/:first/:second', (req, res) => {
+  const { first, second } = req.params
+  lwip.open(`public/card-${first}.png`, (err1, firstImage) => {
+    lwip.open(`public/card-${second}.png`, (err2, secondImage) => {
+      const width = firstImage.width()
+      const height = firstImage.height()
+      lwip.create(width * 2, height, (err, img) => {
+        img.paste(0, 0, firstImage, (err, afterPaste) => {
+          afterPaste.paste(width, 0, secondImage, (err, finalImage) => {
+            finalImage.toBuffer('png', {}, (err, buffer) => {
+              res.writeHead(200, { 'Content-Type': 'image/png' })
+              res.end(buffer, 'binary')
+            })
+          })
+        })
+      })
+    })
+  })
+})
 
 /**
  * Connection related stuff
@@ -169,7 +195,9 @@ controller.on('slash_command', (bot, message) => {
       if (!player) {
         bot.replyPrivate(message, 'You are not in game')
       } else {
-        bot.replyPrivate(message, printCards(player.cards))
+        bot.replyPrivate(message, { attachments: [{
+          image_url: `https://files.localtunnel.me/cards/${player.cards.map((c) => c.id).join('/')}`
+        }]})
       }
     } else if (message.text === 'show stats') {
       bot.replyPrivate(message, game.printPlayerStats())
