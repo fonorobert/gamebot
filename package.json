@@ -4,10 +4,11 @@
   "description": "A game bot for Toggl.",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node lib",
-    "build": "./node_modules/.bin/babel-node lib -d dist",
-    "serve": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "build": "./node_modules/.bin/babel lib -d dist",
+    "serve": "./node_modules/.bin/babel-node lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "./node_modules/.bin/babel lib -d dist"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,7 @@
   },
   "homepage": "https://github.com/toggl/gamebot#readme",
   "engines": {
-    "node": "5.12.",
+    "node": "5.12.0",
     "npm": "3.8.6"
   },
   "dependencies": {
