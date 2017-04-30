@@ -32,7 +32,10 @@
     "botkit-storage-mongo": "^1.0.2",
     "lodash": "^4.17.4",
     "lwip": "0.0.9",
-    "mongodb": "^1.4.39"
+    "mongodb": "^1.4.39",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
