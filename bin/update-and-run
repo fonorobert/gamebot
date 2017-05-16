@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Does a pull of the repo and runs the bot
+
+set -e
+
+DIR="$(dirname "$0")"
+$DIR/update
+$DIR/run

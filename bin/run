@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+BOT_DIR="$( cd "$( dirname "$0" )/.." && pwd )"
+cd $BOT_DIR
+
+npm install
+export PATH="$BOT_DIR/node_modules/.bin:$PATH"
+
+export PRODUCTION=${PRODUCTION:-false}
+export CLIENT_ID=${CLIENT_ID:-""}
+export CLIENT_SECRET=${CLIENT_SECRET:-""}
+export PORT=${PORT:-""}
+
+export USER=${USER:-"gamebot"}
+
+if [ -z "${CLIENT_ID}" ] || [ -z "${CLIENT_SECRET}" ] || [ -z "${PORT}" ]; then
+  echo 'You need to configure the CLIENT_ID, CLIENT_SECRET and PORT environment variables before running this script.'
+  exit 1
+fi
+
+exec npm start
