@@ -10,7 +10,7 @@
 3. Switch back to your default node version
 4. `CLIENT_ID=xxxxxxxxxx.yyyyyyyyyyyy CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx npm run serve`
 
-If you don't know what `CLIENT_ID` and `CLIENT_SECRET` are, please read [https://medium.com/slack-developer-blog/easy-peasy-bots-getting-started-96b65e6049bf](this). `TODO: add more details on that`
+If you don't know what `CLIENT_ID` and `CLIENT_SECRET` are, please read [this](https://medium.com/slack-developer-blog/easy-peasy-bots-getting-started-96b65e6049bf). `TODO: add more details on that`
 
 ## Running in production
 Don't forget to set `PRODUCTION=true`.
