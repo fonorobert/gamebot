@@ -19,4 +19,5 @@ if [ -z "${CLIENT_ID}" ] || [ -z "${CLIENT_SECRET}" ] || [ -z "${PORT}" ]; then
   exit 1
 fi
 
+yarn run build
 exec yarn start
