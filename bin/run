@@ -4,7 +4,7 @@ set -e
 BOT_DIR="$( cd "$( dirname "$0" )/.." && pwd )"
 cd $BOT_DIR
 
-npm install
+yarn --frozen-lockfile
 export PATH="$BOT_DIR/node_modules/.bin:$PATH"
 
 export PRODUCTION=${PRODUCTION:-false}
@@ -19,4 +19,4 @@ if [ -z "${CLIENT_ID}" ] || [ -z "${CLIENT_SECRET}" ] || [ -z "${PORT}" ]; then
   exit 1
 fi
 
-exec npm start
+exec yarn start
