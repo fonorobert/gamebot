@@ -2,36 +2,36 @@
 update-git-and-install() {
   echo "Currently updating $(pwd)"
 
-  # # get provided target branch, if any
-  # targetBranch=$1
+  # get provided target branch, if any
+  targetBranch=$1
 
-  # # get current branch name
-  # currentBranch=`git rev-parse --abbrev-ref HEAD`
+  # get current branch name
+  currentBranch=`git rev-parse --abbrev-ref HEAD`
 
-  # # if no target branch was provided, make current branch the target branch
-  # if [ -z $targetBranch ]; then
-  #   targetBranch=$currentBranch
-  # fi
-  # echo "with target branch $targetBranch"
+  # if no target branch was provided, make current branch the target branch
+  if [ -z $targetBranch ]; then
+    targetBranch=$currentBranch
+  fi
+  echo "with target branch $targetBranch"
 
-  # # get the current commit
-  # oldSHA=`git rev-parse HEAD`
+  # get the current commit
+  oldSHA=`git rev-parse HEAD`
 
-  # # if target branch is not `master`, delete it to avoid force-push issues
-  # if [ $targetBranch != "master" ]; then
-  #   git checkout master
-  #   if [[ `git branch --list $targetBranch` ]]; then
-  #     git branch -D $targetBranch
-  #   fi
-  # fi
+  # if target branch is not `master`, delete it to avoid force-push issues
+  if [ $targetBranch != "master" ]; then
+    git checkout master
+    if [[ `git branch --list $targetBranch` ]]; then
+      git branch -D $targetBranch
+    fi
+  fi
 
-  # # get the remote
-  # git fetch origin
-  # git checkout $targetBranch
-  # echo "Now in branch $(git rev-parse --abbrev-ref HEAD)"
+  # get the remote
+  git fetch origin
+  git checkout $targetBranch
+  echo "Now in branch $(git rev-parse --abbrev-ref HEAD)"
 
-  # # update local branch with remote branch
-  # git rebase origin/$targetBranch
+  # update local branch with remote branch
+  git rebase origin/$targetBranch
 
   yarn --frozen-lockfile --production
 
