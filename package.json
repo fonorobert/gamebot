@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "./node_modules/.bin/babel lib -d dist",
-    "serve": "./node_modules/.bin/babel-node lib",
+    "build": "babel lib -d dist",
+    "serve": "babel-node lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "./node_modules/.bin/babel lib -d dist"
   },
