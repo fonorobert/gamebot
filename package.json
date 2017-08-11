@@ -29,11 +29,12 @@
     "npm": "4.1.2"
   },
   "dependencies": {
-    "botkit": "0.2.2",
-    "lodash": "^4.17.4",
-    "lwip": "0.0.9",
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0"
+    "babel-preset-env": "^1.4.0",
+    "botkit": "0.2.2",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "lwip": "0.0.9"
   }
 }
